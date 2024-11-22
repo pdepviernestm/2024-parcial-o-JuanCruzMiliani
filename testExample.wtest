@@ -1,9 +1,26 @@
-import example.pepita
+import parcial.*
+test "grupo de personas" {
+    const enojo = new Furia (intensidad = 100, palabrotas = ["pezca bicho", "salame"])
+    const enojo2 = new Furia (intensidad = 20, palabrotas = ["pelele"])
+    const festejo = new Alegria(intensidad = 20)
+    const triste = new Tristeza(intensidad = 200, causa = "lo dijeron feo")
+    const miedo = new DesagradoOTemor(intensidad = 40)
 
-describe "group of tests for pepita" {
+    const persona1 = new Persona(edad = 15, emociones = #{enojo, triste})
+    const persona2 = new Persona(edad = 11, emociones = #{triste})
+    const persona3 = new Persona(edad = 20, emociones = #{festejo})
+    const persona4 = new Persona(edad = 33, emociones = #{enojo2, miedo})
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
-  }
+    const amigos = new GrupoDePersonas(personas = #{persona3, persona4, persona1})
+  
+    const evento1 = new Evento(impacto = 10, descripcion = "fue al parque")
 
+    amigos.vivirEventoJuntos(evento1)
+
+    assert.that(!persona2.esAdolescente())
+    assert.that(persona1.esAdolescente())
+
+    assert.that(persona2.estaPorExplotar()) // error en test pero no en consola
+
+    assert.that(!persona2.estaPorExplotar())
 }
